@@ -1,24 +1,380 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sakeenah</title>
-  <meta name="description" content="Sakeenah by Unpossible Apps: prayer times, the Quran with recitation, athkar, tasbih and qibla.">
-  <style>
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, sans-serif; max-width: 40rem; margin: 3rem auto; padding: 0 1rem; line-height: 1.6; }
-    a { color: #0f5e47; }
-    @media (prefers-color-scheme: dark) { a { color: #7fd1b0; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sakeenah — prayer times, Quran, athkar and tasbih for Android</title>
+<meta name="description" content="Sakeenah is a calm, private Islamic companion for Android: accurate prayer times and qibla, the Holy Quran with recitation, Hisn al-Muslim athkar, a digital tasbih and a worship tracker. Free, offline, no account.">
+<meta name="theme-color" content="#0e5c46">
+<meta property="og:title" content="Sakeenah — a calm companion for daily worship">
+<meta property="og:description" content="Prayer times, the Quran with recitation, athkar, tasbih and qibla in one calm, private app. Free, offline, no account.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://e8013585.github.io/sakeenah-website/">
+<meta property="og:image" content="https://e8013585.github.io/sakeenah-website/img/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preload" href="fonts/amiri-quran-subset.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css">
+<script>
+  /* Apply a remembered theme before first paint so the page doesn't flash. */
+  try { var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+<script src="site.js" defer></script>
 </head>
 <body>
-  <h1>Sakeenah</h1>
-  <p>By Unpossible Apps</p>
-  <p>A calm, private companion for daily worship: prayer times, the Quran with recitation, athkar, tasbih and qibla.</p>
-  <ul>
-    <li><a href="https://play.google.com/store/apps/details?id=com.unpossibleapps.sakeenah">Get it on Google Play</a></li>
-    <li><a href="https://e8013585.github.io/sakeenah-privacy-policy/">Privacy policy</a></li>
-  </ul>
+<a class="skip" href="#about">Skip to content</a>
+
+<!-- Line icons used by the feature cards (24×24, stroked in currentColor). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-5-2-8-1.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6z"/><path d="M12 6v14.5"/></g></symbol>
+    <symbol id="i-hands" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></g></symbol>
+    <symbol id="i-beads" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="4.5" r="1.6"/><circle cx="17.3" cy="6.7" r="1.6"/><circle cx="19.5" cy="12" r="1.6"/><circle cx="17.3" cy="17.3" r="1.6"/><circle cx="6.7" cy="17.3" r="1.6"/><circle cx="4.5" cy="12" r="1.6"/><circle cx="6.7" cy="6.7" r="1.6"/><path d="M12 19.5v2.5"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4M9 14.5l2 2 4-4"/></g></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 15.5A8 8 0 0 1 9.5 4a8 8 0 1 0 9.5 11.5z"/></g></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12"/><rect x="6" y="6" width="12" height="12" transform="rotate(45 12 12)"/></g></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></g></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></g></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/><path d="M3 3l18 18"/></g></symbol>
+    <symbol id="i-banner" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M3.5 16h17"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="./"><img src="img/icon-192.png" alt="" width="30" height="30"><span data-site="appName">Sakeenah</span></a>
+    <nav class="site" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#privacy" class="hide-sm">Privacy</a>
+      <a href="#details" class="hide-sm">Details</a>
+    </nav>
+    <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode">◐</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <p class="arabic" lang="ar" dir="rtl">سكينة</p>
+    <p class="meaning">Sakeenah · tranquillity</p>
+    <h1>A calm companion for every day of worship.</h1>
+    <p class="lede">
+      Prayer times, the Holy Quran with recitation, authentic daily duas, a digital
+      tasbih and a worship tracker, together in one quiet, private app for Android.
+    </p>
+    <span class="pill">Free · Version <span data-site="version">1.0.1</span> · Android 7.0 and later</span>
+    <div class="cta-row">
+      <a class="store-badge" data-store-button
+         href="https://play.google.com/store/apps/details?id=com.unpossibleapps.sakeenah"
+         aria-label="Get it on Google Play">
+        <img src="img/get-it-on-google-play.png" width="270" height="80" alt="Get it on Google Play">
+      </a>
+      <a class="btn btn-light" href="#about">What is Sakeenah?</a>
+    </div>
+    <p class="cta-note" data-store-note hidden>Coming soon to Google Play</p>
+
+    <div class="hero-phones" aria-hidden="true">
+      <img class="side" src="img/screens/02_quran.webp" alt="" width="540" height="960">
+      <img src="img/screens/01_home.webp" alt="" width="540" height="960">
+      <img class="side" src="img/screens/03_prayer.webp" alt="" width="540" height="960">
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap intro">
+    <div>
+      <span class="eyebrow">Introduction</span>
+      <h2>What is Sakeenah?</h2>
+      <p>
+        <strong>Sakeenah</strong> (<span lang="ar">سكينة</span>) is the Arabic word for
+        the tranquillity that settles on the heart. The app is built around that idea:
+        the essentials of a Muslim's day in one calm place, without noise, feeds or
+        sign-ups.
+      </p>
+      <p>
+        Open it and you see the next prayer and how long until it begins. From there
+        it is one tap to the Quran, with Uthmani script, an English translation and
+        recitation by seven renowned reciters; to the morning and evening athkar from
+        <em>Hisn al-Muslim</em>; to a tasbih that keeps count; or to a simple log of
+        the prayers and fasts you have kept.
+      </p>
+      <p>
+        Prayer times, the Quran text, the duas and your records all live on your
+        phone, so <strong>everything except audio recitation works offline</strong>.
+        There is no account to create, and it is free.
+      </p>
+      <p>
+        It is made for everyday use by anyone: someone who has prayed all their life,
+        or someone taking their first steps, for whom there is a gentle guide for new
+        Muslims.
+      </p>
+      <blockquote class="verse">
+        <p>“It is He who sent down tranquillity into the hearts of the believers that
+        they would increase in faith along with their [present] faith.”</p>
+        <cite>Surah Al-Fath 48:4 · Saheeh International</cite>
+      </blockquote>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>114</b><span>surahs, with translation and verse-by-verse audio</span></div>
+      <div class="stat"><b>7</b><span>reciters, including Alafasy, Al-Husary and Abdul Basit</span></div>
+      <div class="stat"><b>131</b><span>chapters of Hisn al-Muslim with transliteration</span></div>
+      <div class="stat"><b>11</b><span>prayer-time calculation methods, Hanafi or standard Asr</span></div>
+      <div class="stat"><b>120</b><span>interface languages, with right-to-left support</span></div>
+      <div class="stat"><b>0</b><span>accounts, sign-ins or analytics</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="screens" aria-labelledby="screens-h">
+  <div class="wrap">
+    <span class="eyebrow">A look inside</span>
+    <h2 id="screens-h">Simple screens for daily use</h2>
+    <p class="section-lede">Light, dark and pure-black themes, in your own language.</p>
+    <div class="shots" tabindex="0" role="region" aria-label="App screenshots, scroll sideways">
+      <figure><img src="img/screens/01_home.webp" width="540" height="960" loading="lazy" alt="Home screen showing the next prayer, Asr, with a countdown and today's five prayer times"><figcaption>Home</figcaption></figure>
+      <figure><img src="img/screens/02_quran.webp" width="540" height="960" loading="lazy" alt="Surah Ar-Rahman in Uthmani script with English translation and play buttons for each verse"><figcaption>The Quran</figcaption></figure>
+      <figure><img src="img/screens/03_prayer.webp" width="540" height="960" loading="lazy" alt="Prayer times for the day with the prayers already prayed ticked"><figcaption>Prayer times</figcaption></figure>
+      <figure><img src="img/screens/04_athkar.webp" width="540" height="960" loading="lazy" alt="Morning and evening athkar card showing Ayat al-Kursi in Arabic with translation"><figcaption>Athkar</figcaption></figure>
+      <figure><img src="img/screens/05_tasbih.webp" width="540" height="960" loading="lazy" alt="Tasbih counter at 21 of 33 for SubhanAllah"><figcaption>Tasbih</figcaption></figure>
+      <figure><img src="img/screens/06_tracker.webp" width="540" height="960" loading="lazy" alt="Weekly salah log grid with each prayer marked on time, late or missed"><figcaption>Worship tracker</figcaption></figure>
+      <figure><img src="img/screens/07_qibla.webp" width="540" height="960" loading="lazy" alt="Qibla compass with bearing and distance to the Kaaba"><figcaption>Qibla</figcaption></figure>
+      <figure><img src="img/screens/08_yours.webp" width="540" height="960" loading="lazy" alt="The home screen in dark theme beside the same screen in Arabic"><figcaption>Your language, your theme</figcaption></figure>
+    </div>
+    <p class="hint">Scroll sideways to see more.</p>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <span class="eyebrow">Features</span>
+    <h2>Everything for the day, nothing in the way</h2>
+    <p class="section-lede">
+      Each part of the app does one job well, and all of it is a tap or two from the
+      home screen.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-clock"/></svg></div>
+        <h3>Prayer times</h3>
+        <ul>
+          <li>Accurate times for your location, calculated on your phone</li>
+          <li>11 calculation methods, Hanafi or standard Asr and high-latitude rules</li>
+          <li>An alert as each prayer begins, switchable per prayer</li>
+          <li>Hijri date with manual adjustment</li>
+          <li>Rather not share your location? Enter coordinates by hand</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-book"/></svg></div>
+        <h3>The Holy Quran</h3>
+        <ul>
+          <li>Full Uthmani script in the Amiri Quran typeface</li>
+          <li>Saheeh International English translation</li>
+          <li>Verse-by-verse recitation by 7 reciters, playing on in the background with lock-screen controls</li>
+          <li>Mushaf page view, search, bookmarks and “continue reading”</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-hands"/></svg></div>
+        <h3>Athkar and duas</h3>
+        <ul>
+          <li>Hisn al-Muslim: all 131 chapters with Arabic, transliteration and translation</li>
+          <li>Morning and evening athkar on tap-to-count cards, with optional reminders</li>
+          <li>Duas from the Quran, and favourites for the ones you return to</li>
+          <li>Ruqyah: Quranic verses and prophetic duas for healing</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-beads"/></svg></div>
+        <h3>Tasbih</h3>
+        <ul>
+          <li>A digital counter with goals and gentle vibration</li>
+          <li>Session history and running totals</li>
+          <li>Build your own dhikr sets and run them as a guided counter</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-check"/></svg></div>
+        <h3>Worship tracker</h3>
+        <ul>
+          <li>Log each prayer as on time, late or missed, and keep your streak</li>
+          <li>Fasting log, with a guide to the sunnah fasts</li>
+          <li>Qada counter for prayers you are making up</li>
+          <li>Khatmah planner: set a daily goal and complete the Quran</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-compass"/></svg></div>
+        <h3>Qibla</h3>
+        <p>
+          A compass that shows the bearing and distance to the Kaaba from wherever you
+          are, and works without a connection.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-moon"/></svg></div>
+        <h3>Ramadan and zakat</h3>
+        <ul>
+          <li>Ramadan hub with a countdown, suhoor and iftar times and daily tools</li>
+          <li>Zakat calculator with a nisab check and saved history</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-star"/></svg></div>
+        <h3>Learning and reflection</h3>
+        <ul>
+          <li>The 99 Names of Allah with their meanings</li>
+          <li>A verse and a hadith for each day</li>
+          <li>Step-by-step Hajj and Umrah guide</li>
+          <li>A gentle guide for new Muslims</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-phone"/></svg></div>
+        <h3>On your home screen</h3>
+        <p>
+          Widgets for the next prayer and the verse of the day, so a glance is enough.
+          Light, dark and pure-black (AMOLED) themes to suit your eyes and your screen.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="privacy">
+  <div class="wrap">
+    <span class="eyebrow">Made to respect you</span>
+    <h2>Your worship stays on your phone</h2>
+    <p class="section-lede">
+      In short, and in plain words. The full
+      <a data-site-href="privacyUrl" href="https://e8013585.github.io/sakeenah-privacy-policy/">privacy policy</a>
+      says the same in detail.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <h3>Private by design</h3>
+        <p>
+          Your prayer log, bookmarks, tasbih counts and settings are stored on your
+          phone. There are no accounts and no analytics, and none of your worship
+          records are sent to us.
+        </p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-offline"/></svg></div>
+        <h3>Works offline</h3>
+        <p>
+          Prayer times are calculated on the device, and the Quran, its translation
+          and the duas are built in. Only audio recitation needs a connection; it is
+          streamed from the Islamic Network CDN.
+        </p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg aria-hidden="true"><use href="#i-banner"/></svg></div>
+        <h3>One small, honest ad</h3>
+        <p>
+          A single banner on the main tabs keeps Sakeenah free. It never appears while
+          you read the Quran, make dhikr or pray, and ads are limited to
+          family-suitable content. Where the law requires it, you choose whether ads
+          are personalised, and can change that choice in About.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="details">
+  <div class="wrap">
+    <span class="eyebrow">Details</span>
+    <h2>At a glance</h2>
+    <p class="section-lede">What the app includes and what it needs.</p>
+    <div class="table-scroll">
+      <table class="spec">
+        <tbody>
+          <tr><th>Quran</th><td>Uthmani script, Saheeh International translation, Mushaf page view, search, bookmarks</td></tr>
+          <tr><th>Reciters</th><td>Mishary Rashid Alafasy, Mahmoud Khalil Al-Husary, Mohamed Siddiq Al-Minshawi, Abdul Basit Abdus-Samad, Abdur-Rahman As-Sudais, Saud Ash-Shuraym, Maher Al-Muaiqly</td></tr>
+          <tr><th>Prayer methods</th><td>Muslim World League, Egyptian General Authority, University of Islamic Sciences (Karachi), Umm al-Qura (Makkah), Dubai, Qatar, Kuwait, Moonsighting Committee, Singapore, Diyanet (Turkey), ISNA (North America)</td></tr>
+          <tr><th>Asr</th><td>Standard (Shafi'i, Maliki, Hanbali) or Hanafi</td></tr>
+          <tr><th>Athkar</th><td>Hisn al-Muslim, 131 chapters, with transliteration and English translation</td></tr>
+          <tr><th>Reminders</th><td>Per-prayer alerts, morning and evening athkar reminders</td></tr>
+          <tr><th>Widgets</th><td>Next prayer, verse of the day</td></tr>
+          <tr><th>Themes</th><td>Light, dark, pure black (AMOLED), or follow the system</td></tr>
+          <tr><th>Languages</th><td>120 interface languages, including Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, French, German and Russian, with right-to-left layouts</td></tr>
+          <tr><th>Permissions</th><td>Location for prayer times and qibla (or enter it by hand), notifications for reminders, exact alarms so alerts arrive on time</td></tr>
+          <tr><th>Requires</th><td>Android 7.0 (API 24) or later</td></tr>
+          <tr><th>Price</th><td>Free, with one banner ad on the main tabs. No purchases</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint" style="margin-top:18px;">
+      Interface translations beyond English are machine-generated and still being
+      reviewed. The Quran, Hisn al-Muslim and hadith texts are not machine-translated.
+    </p>
+  </div>
+</section>
+
+<section class="alt" id="sources">
+  <div class="wrap">
+    <span class="eyebrow">Sources</span>
+    <h2>Where the content comes from</h2>
+    <p class="section-lede">
+      Sacred text comes from established sources and is shown as published, never
+      rewritten.
+    </p>
+    <ul class="sources">
+      <li><b>Quran text</b>Tanzil.net, Uthmani script</li>
+      <li><b>Translation</b>Saheeh International</li>
+      <li><b>Athkar</b><em>Hisn al-Muslim</em> by Sa'id ibn Wahf al-Qahtani</li>
+      <li><b>Recitation</b>Streamed from the Islamic Network CDN</li>
+      <li><b>Quran typeface</b>Amiri Quran, SIL Open Font License</li>
+    </ul>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <h2>Bring a little sakeenah into your day</h2>
+    <p class="section-lede">Free on Google Play, for Android 7.0 and later.</p>
+    <a class="store-badge" data-store-button
+       href="https://play.google.com/store/apps/details?id=com.unpossibleapps.sakeenah"
+       aria-label="Get it on Google Play">
+      <img src="img/get-it-on-google-play.png" width="270" height="80" alt="Get it on Google Play" loading="lazy">
+    </a>
+    <p class="dua">May Allah accept it from us and from you.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap foot-row">
+    <div>
+      <strong data-site="appName">Sakeenah</strong> ·
+      made by <span data-site="developer">Unpossible Apps</span><br>
+      © <span data-year>2026</span> <span data-site="developer">Unpossible Apps</span>. All rights reserved.<br>
+      Google Play and the Google Play logo are trademarks of Google LLC.
+    </div>
+    <div class="foot-links">
+      <a data-site-href="privacyUrl" href="https://e8013585.github.io/sakeenah-privacy-policy/">Privacy policy</a>
+      <a data-site-href="contactUrl" href="https://github.com/e8013585/sakeenah-privacy-policy/issues">Contact</a>
+      <a data-store-button href="https://play.google.com/store/apps/details?id=com.unpossibleapps.sakeenah">Google Play</a>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
